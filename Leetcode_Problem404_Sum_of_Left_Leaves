@@ -1,0 +1,56 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     struct TreeNode *left;
+ *     struct TreeNode *right;
+ * };
+ */
+void order(struct TreeNode* root , int* sum , int flag)
+{
+    if(flag && (!root->left && !root->right))
+    {
+        *sum += root->val;
+        return;
+    }
+    if(root->left)
+        order(root->left,sum,1);
+    if(root->right)
+        order(root->right,sum,0);    
+}
+int sumOfLeftLeaves(struct TreeNode* root){
+    int sum = 0;
+    order(root,&sum,0);
+    return sum;
+}
+
+
+
+
+---------------------------------------------------------------------------------------
+
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     struct TreeNode *left;
+ *     struct TreeNode *right;
+ * };
+ */
+int sum;
+void dfs (struct TreeNode* node)
+{
+    if (!node)
+        return;
+    if (node->left && (!node->left->left)&& (!node->left->right)) /* Is 'node' a left leaf node? */
+        sum += node->left->val;
+    dfs (node->left);
+    dfs (node->right);
+}
+int sumOfLeftLeaves(struct TreeNode* root)
+{
+    sum = 0;
+    dfs (root);
+    return sum;
+}
